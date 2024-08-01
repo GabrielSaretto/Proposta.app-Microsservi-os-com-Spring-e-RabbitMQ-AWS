@@ -20,7 +20,7 @@ public class Usuario {
 
     private Double renda;
 
-    @OneToOne(mappedBy = "proposta")
+    @OneToOne(mappedBy = "usuario")
     private Proposta proposta;
 
 }
