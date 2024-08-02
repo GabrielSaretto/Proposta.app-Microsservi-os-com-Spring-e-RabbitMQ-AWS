@@ -15,7 +15,7 @@ public class PropostaResponseDto {
 
     private String nome;
 
-    private String sobremesa;
+    private String sobrenome;
 
     private String telefone;
 
@@ -27,8 +27,8 @@ public class PropostaResponseDto {
 
     private int prazoPagamento;
 
-    private Boolean aprovado;
+    private Boolean aprovada;
 
-    private String abservacao;
+    private String observacao;
 
 }

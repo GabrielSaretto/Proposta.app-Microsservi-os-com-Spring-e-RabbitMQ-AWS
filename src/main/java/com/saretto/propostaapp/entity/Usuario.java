@@ -1,9 +1,16 @@
 package com.saretto.propostaapp.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "tb_usuario")
 public class Usuario {
 
     @Id
@@ -12,7 +19,7 @@ public class Usuario {
 
     private String nome;
 
-    private String sobremesa;
+    private String sobrenome;
 
     private String cpf;
 
