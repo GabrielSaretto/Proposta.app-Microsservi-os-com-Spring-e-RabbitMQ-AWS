@@ -6,17 +6,27 @@ import com.saretto.propostaapp.entity.Proposta;
 import com.saretto.propostaapp.mapper.PropostaMapper;
 import com.saretto.propostaapp.repository.PropostaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Service
 public class PropostaService {
 
     private PropostaRepository propostaRepository;
 
     private NotificacaoService notificacaoService;
+
+    private String exchange;
+
+    public PropostaService(PropostaRepository propostaRepository,
+                           NotificacaoService notificacaoService,
+                           @Value("${rabbitmq.propostapendente.exchange}") String exchange) {
+        this.propostaRepository = propostaRepository;
+        this.notificacaoService = notificacaoService;
+        this.exchange = exchange;
+    }
 
     public PropostaResponseDto criar(PropostaRequestDto requestDto){
         Proposta proposta = PropostaMapper.INSTANCE.convertDtoToProposta(requestDto);
