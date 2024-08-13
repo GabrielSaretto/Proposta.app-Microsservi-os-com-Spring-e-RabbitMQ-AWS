@@ -1,7 +1,6 @@
 package com.saretto.propostaapp.config;
 
-import org.springframework.amqp.core.QueueBuilder;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -42,5 +41,22 @@ public class RabbitMQConfiguration {
     @Bean
     public ApplicationListener<ApplicationReadyEvent> inicializarAdmin(RabbitAdmin rabbitAdmin){
         return event -> rabbitAdmin.initialize();
+    }
+
+    @Bean
+    public FanoutExchange criarFanoutExchangePropostaPendente(){
+        return ExchangeBuilder.fanoutExchange("proposta-pendente.ex").build();
+    }
+
+    @Bean
+    public Binding criarBindingPropostaPendenteMsAnaliseCredito(){
+        return BindingBuilder.bind(criarFilaPropostaPendenteMsAnaliseCredito()).
+                to(criarFanoutExchangePropostaPendente());
+    }
+
+    @Bean
+    public Binding criarBindingPropostagitPendenteMsNotificacao(){
+        return BindingBuilder.bind(criarFilaPropostaPendenteMsNotificacao()).
+                to(criarFanoutExchangePropostaPendente());
     }
 }
